@@ -9,7 +9,7 @@ The design is based on the [LV14240](https://www.ti.com/product/LV14240) buck co
 
 Layout is based on the "Application and Implementation" section of the datasheet.
 
-![image](.\doc\render.png "Buck PCB Rendered Image")
+![Buck PCB Render](/doc/render.png)
 
 ---
 
