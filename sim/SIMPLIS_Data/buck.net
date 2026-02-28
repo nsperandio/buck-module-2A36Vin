@@ -1,0 +1,76 @@
+* C:\Users\nicol\Documents\Projects\buck-module-2A40Vin\sim\buck.wxsch
+*#SIMETRIX
+.node_map VIN 26
+.node_map I_flt 29
+.node_map VOUT 27
+.node_map IIN 28
+.node_map V_flt 30
+.ac DEC 50 10 100k
+.print
++ ALL
+.options
++ PSP_NPT=100001
++ POP_ITRMAX=20
++ POP_OUTPUT_CYCLES=5
++ SNAPSHOT_INTVL=0
++ SNAPSHOT_NPT=11
++ MIN_AVG_TOPOLOGY_DUR=1a
++ AVG_TOPOLOGY_DUR_MEASUREMENT_WINDOW=128
+.pop
++ TRIG_GATE={TRIG_GATE}
++ TRIG_COND=0_TO_1
++ MAX_PERIOD=5u
++ CONVERGENCE=1p
++ CYCLES_BEFORE_LAUNCH=5
++ TD_RUN_AFTER_POP_FAILS=-1
+*.tran 5m 0
+
+
+C1 27 0 30u
+C3 30 25 20u
+C4 30 0 10u
+X$D1 0 19 DIODE_SPICE_V3 vars: ID_PEAK=200m ID3=200.0000000000044m MAX_ROFF=100Meg USER_IC_A=1 VD_PEAK=100 LIMIT_MAX_ROFF=1 LEVEL=0 TEMP=50 NUMSEG=3 IC=1 IC_A=1 IC_B=1 IC_C=1 IC_D=1 CONFIG=0 VD0=-100.0000000000022 ID0=-1.000000000000022u VD1=546.8705669634799m DEVICE='IDEAL' ID1=5.468705669634799n VD2=606.8556382932117m ID2=62.61691528865831m VD3=633.3745705464785m LABEL='USER_LABEL' USER_DIODE_FWD_VOLTAGE=594.769m USER_DIODE_FWD_RES=193.029m USER_IC_B=1 USER_DIODE_OFF_RESISTANCE=100Meg USER_DIODE_CJ=0 USE_EXTRACTED=1 USER_IC=1 USER_IC_C=1 USER_IC_D=1 REF='D1'
+E1 18 19 17 0 1
+X$H1 28 0 16 26 H1$TP_CCVS vars: gain=1
+.subckt H1$TP_CCVS 1 2 3 4
+.node_map P 1
+.node_map N 2
+.node_map CP 3
+.node_map CN 4
+H1 1 2 V1 {gain}
+V1 3 4 0
+.ends
+X$H2 29 0 24 30 H2$TP_CCVS vars: gain=1
+.subckt H2$TP_CCVS 1 2 3 4
+.node_map P 1
+.node_map N 2
+.node_map CP 3
+.node_map CN 4
+H1 1 2 V1 {gain}
+V1 3 4 0
+.ends
+I1 0 24 AC 1 0
+L1 19 27 10u
+L3 22 23 47u
+.PRINT V(#VIN)
+.PRINT V(#IIN)
+.GRAPH "db(:#VIN/:#IIN)" GUID="da3a0580-317f-45be-ac06-1bca948d45b0" Curvelabel="Gain Buck" nowarn=true yunit="dB" complete=True analysis="ac" ylog=lin xlog=auto  ydelta=20 persistence=-1 colourname=Probe1_bode_color   axistype=grid axisname=bodemag order=0    userid=Probe1$GAIN. MeasureSpec="Gain\sCrossover\sFrequency\s(dB\sPlot)|0|0|0|0!Gain\sMargin\s(dB\sPlot)|0|0|0|0"
+.post_process probe_measure Probe1$GAIN. Gain\sCrossover\sFrequency\s(dB\sPlot)|0|0|0|0!Gain\sMargin\s(dB\sPlot)|0|0|0|0
+.GRAPH "ph(:#VIN/:#IIN)" Curvelabel="Phase Buck" nowarn=true yunit="degrees" complete=True analysis="ac" ylog=lin xlog=auto  ydelta=45 persistence=-1 colourname=Probe1_bode_color    axisname=bodephase order=1    userid=Probe1$PHASE. MeasureSpec="Phase\sMargin\s(Phase\sPlot)|0|0|0|0"
+.post_process probe_measure Probe1$PHASE. Phase\sMargin\s(Phase\sPlot)|0|0|0|0
+.PRINT V(#V_flt)
+.PRINT V(#I_flt)
+.GRAPH "db(:#V_flt/:#I_flt)" GUID="ef51d3fa-f136-4f4d-a929-da9758f7b98f" Curvelabel="Gain Filter" nowarn=true yunit="dB" complete=True analysis="ac" ylog=lin xlog=auto  ydelta=20 persistence=-1 colourname=Probe3_bode_color   axistype=grid axisname=bodemag order=0    userid=Probe3$GAIN. MeasureSpec="Gain\sCrossover\sFrequency\s(dB\sPlot)|0|0|0|0!Gain\sMargin\s(dB\sPlot)|0|0|0|0"
+.post_process probe_measure Probe3$GAIN. Gain\sCrossover\sFrequency\s(dB\sPlot)|0|0|0|0!Gain\sMargin\s(dB\sPlot)|0|0|0|0
+.GRAPH "ph(:#V_flt/:#I_flt)" Curvelabel="Phase Filter" nowarn=true yunit="degrees" complete=True analysis="ac" ylog=lin xlog=auto  ydelta=45 persistence=-1 colourname=Probe3_bode_color    axisname=bodephase order=1    userid=Probe3$PHASE. MeasureSpec="Phase\sMargin\s(Phase\sPlot)|0|0|0|0"
+.post_process probe_measure Probe3$PHASE. Phase\sMargin\s(Phase\sPlot)|0|0|0|0
+X$Q1 26 18 19 PWR_NMOS_SPICE_V3 vars: USER_COSS=0 CDG_NSEG=0 RDSon=115.478m VCGS1=1 MAX_ROFF=100Meg VD_PEAK=19 VGSON=20 ID_PEAK=2 LIMIT_MAX_ROFF=1 TEMP=25 BD_NSEG=4 LEVEL=0 ROFF=100Meg QCGS0=0 VT0=4.04869 HYSTWD=404.869m VGS2=5.04869 VCGS0=0 ID2=2.84246 RG=1.94688 KP1=333.333m KP2=1 REV_BIAS=0 REV_BIAS_SEGS=2 VD0=-10.001k IBD0=-1 VD1=-10k IBD1=0 VD2=637.553m IBD2=0 VD3=705.056m USE_EXTRACTED=1 IBD3=537.004m VD4=752.617m IBD4=2 CGS_NSEG=1 QCGS1=616.994p LABEL='USER_LABEL' CDS_NSEG=0 DEVICE='IRF530' USER_DIODE_FWD_RES=32.5096m USER_RDSON=115.478m USER_ROFF=100Meg USER_VT0=4.04869 USER_HYSTWD=404.869m USER_DIODE_FWD_VOLTAGE=687.598m USER_CGS=616.994p USER_RG=1.94688 REF='Q1'
+R1 27 0 2.5
+R2 30 23 230m
+R3 25 0 40m
+V1 20 0 19
+X$V2 17 0 PUL_SOURCE vars: _V1=0 _V2=20 _FREQ=500k _DELAY=0 _DRATIOx100=30 _T_RISE=2n _T_FALL=2n _DAMP_COEF=0 _PWIDTH=598n _OFF_UNTIL_DELAY=0 _IDLE_IN_POP=0 _USEPHASE=0 _PHASE=0 _SHOWPARAMS=0
+V4 16 20 AC 1
+V5 22 0 19
+X1 17 21 PERIODIC_OP vars: VREF=2.5 VOL=0 VOH=5 HYSTWD=0.002 DIVIDE_BY_2=0 IC=0 DELAY=0 TRIG_COND='0_TO_1'
+.end

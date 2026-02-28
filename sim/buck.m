@@ -12,7 +12,7 @@ Io = linspace(Io_min,Io_max,10);
 M = Vo/Vi;
 Lmin = Vo/(ripple_I*Io_max*fsw)*(1-M);
 
-L = Lmin;
+L = 10e-6;
 DeltaIL = Vo/(L*fsw)*(1-M);
 
 Is_pk = Io_max+ripple_I*Io_max;
