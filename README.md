@@ -35,7 +35,9 @@ Layout is based on the "Application and Implementation" section of the datasheet
 ## EMI Considerations
 
 An LCR input filter is added to attenuate conducted emissions at the switching frequency. The filter's damping factor can be obtained thanks to the ESR of the bulk capacitor and the DCR of the inductor. If the parasitics are not high enough an additional resistor can be used. 
-Modulus of the buck input impedance in green, modulus of the filter impedance in red:
+![Buck Schematics](/doc/Figures/buck_schematics.svg)
+
+The following plots refer to the components in the table. Modulus of the buck input impedance in green, modulus of the filter impedance in red:
 
 <img width="989" height="566" alt="image" src="https://github.com/user-attachments/assets/6d8f6ff1-3754-4afb-9042-20d1f745e1e3" />
 
